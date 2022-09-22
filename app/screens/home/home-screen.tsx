@@ -136,14 +136,14 @@ export const HomeScreen: FC<StackScreenProps<NavigatorParamList, "home">> = obse
 
       const dateData = `${year}${month}${day}`
 
+      //? result-screen에서 기상청API로 전송할 데이터
       const request = {
         base_date: dateData,
         base_time: timeData,
         nx: 60,
         ny: 127,
       }
-      //TODO: result 페이지로 이동
-      console.log(request)
+      //? request 데이터를 담아서 result-screen으로 이동
       navigation.navigate("result", request)
     }
 
