@@ -56,7 +56,7 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
       // TODO: api 이용해서 응답으로 받은 결과 값들 저장하기
       //? API를 여기서 호출하고, 호출 받은 리스트의 각 요소마다 addWeatherLocation 적용(map)
       async function fetchData() {
-        await weatherLocationStore.getWeatherLocations({
+        await weatherLocationStore.setWeatherLocations({
           ...route.params,
         })
         setStore(weatherLocationStore.weatherLocations)

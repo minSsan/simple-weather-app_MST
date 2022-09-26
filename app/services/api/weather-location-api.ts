@@ -2,6 +2,7 @@ import { ApiResponse } from "apisauce"
 import { Api } from "./api"
 import { getGeneralApiProblem } from "./api-problem"
 import axios from "axios"
+import { DEFAULT_API_CONFIG } from "./api-config"
 
 interface getWeatherLocationsProps {
   base_date: string
@@ -12,6 +13,7 @@ interface getWeatherLocationsProps {
 
 interface responseProps {
   category: string
+  fcstDate: string
   fcstTime: string
   fcstValue: string
   nx: number
@@ -21,82 +23,58 @@ interface responseProps {
 export class WeatherLocationApi {
   private api: Api
 
-  constructor(api: Api) {
+  constructor(api: Api = new Api()) {
     this.api = api
   }
 
   async getWeatherLocations({ base_date, base_time, nx, ny }: getWeatherLocationsProps) {
-    try {
-      const response = await axios.get(
-        "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst",
-        {
-          params: {
-            serviceKey:
-              "vCcxPDPprtkDLyR5hdoX4mg6nbpv0KUC/MgO9nEbEZWXyutREW6PXnnaMW6N1yZX/Xv6i1T7lOZYeohhb0/jFQ==",
-            numOfRows: 6,
-            pageNo: 1,
-            dataType: "JSON",
-            base_date,
-            base_time,
-            nx,
-            ny,
-          },
-        },
-      )
-      //   const weatherLocations: Array<responseProps> = response.data.response.body.items.item
-      return { weatherLocations: response.data.response.body.items.item }
-    } catch (error) {
-      console.error(error)
+    this.api.setup()
+
+    const _response: ApiResponse<any> = await this.api.apisauce.get("/getUltraSrtFcst", {
+      serviceKey: this.api.config.serviceKey,
+      numOfRows: 6,
+      pageNo: 1,
+      dataType: "JSON",
+      base_date,
+      base_time,
+      nx,
+      ny,
+    })
+
+    if (!_response.ok) {
+      const problem = getGeneralApiProblem(_response)
+      if (problem) {
+        return problem
+      }
     }
 
-    // await axios
-    //   .get("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst", {
-    //     params: {
-    //       serviceKey:
-    //         "vCcxPDPprtkDLyR5hdoX4mg6nbpv0KUC/MgO9nEbEZWXyutREW6PXnnaMW6N1yZX/Xv6i1T7lOZYeohhb0/jFQ==",
-    //       numOfRows: 6,
-    //       pageNo: 1,
-    //       dataType: "JSON",
-    //       base_date,
-    //       base_time,
-    //       nx,
-    //       ny,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     const weatherLocations: Array<responseProps> = response.data.response.body.items.item
-    //     console.log("weather loactions: ", weatherLocations)
-    //     return { weatherLocations }
-    //   })
-    //   .catch((response) => response)
+    // console.log(_response)
+    const weatherLocations: Array<responseProps> = _response.data.response.body.items.item
+    // console.log("weather locations: ", weatherLocations)
 
-    //   const response: ApiResponse<any> = await this.api.apisauce.get(
+    return { kind: "ok", weatherLocations }
+
+    // try {
+    //   const response = await axios.get(
     //     "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst",
     //     {
-    //       serviceKey:
-    //         "vCcxPDPprtkDLyR5hdoX4mg6nbpv0KUC%2FMgO9nEbEZWXyutREW6PXnnaMW6N1yZX%2FXv6i1T7lOZYeohhb0%2FjFQ%3D%3D",
-    //       numOfRows: 6,
-    //       pageNo: 1,
-    //       dataType: "JSON",
-    //       base_date,
-    //       base_time,
-    //       nx,
-    //       ny,
+    //       params: {
+    //         serviceKey:
+    //           "vCcxPDPprtkDLyR5hdoX4mg6nbpv0KUC/MgO9nEbEZWXyutREW6PXnnaMW6N1yZX/Xv6i1T7lOZYeohhb0/jFQ==",
+    //         numOfRows: 6,
+    //         pageNo: 1,
+    //         dataType: "JSON",
+    //         base_date,
+    //         base_time,
+    //         nx,
+    //         ny,
+    //       },
     //     },
     //   )
-
-    //   console.log("========== response")
-    //   console.log(response)
-
-    //   if (!response.ok) {
-    //     const problem = getGeneralApiProblem(response)
-    //     if (problem) return problem
-    //     return problem
-    //   }
-
-    // const weatherLocations: Array<responseProps> = response.data.items.item
-    // console.log("weather loactions: ", weatherLocations)
-
-    //   return { kind: "ok", weatherLocations }
+    //   //   const weatherLocations: Array<responseProps> = response.data.response.body.items.item
+    //   return { weatherLocations: response.data.response.body.items.item }
+    // } catch (error) {
+    //   console.error(error)
+    // }
   }
 }

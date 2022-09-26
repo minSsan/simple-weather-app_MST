@@ -67,8 +67,8 @@ export const WeatherLocationStoreModel = types
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
-    getWeatherLocations: async ({ base_date, base_time, nx, ny }: WeatherLocationApiProps) => {
-      const weatherLocationApi = new WeatherLocationApi(self.environment.api)
+    setWeatherLocations: async ({ base_date, base_time, nx, ny }: WeatherLocationApiProps) => {
+      const weatherLocationApi = new WeatherLocationApi()
       const result = await weatherLocationApi.getWeatherLocations({
         base_date,
         base_time,
@@ -76,7 +76,9 @@ export const WeatherLocationStoreModel = types
         ny,
       })
 
-      if (result.weatherLocations) {
+      //? with < apisauce >
+      if (result.kind === "ok") {
+        // self.saveWeatherLocations(result.weatherLocations)
         result.weatherLocations.forEach((value, index) => {
           self.addWeatherLocation({
             date: value.fcstDate,
@@ -91,12 +93,15 @@ export const WeatherLocationStoreModel = types
             },
           })
         })
+      } else {
+        __DEV__ && console.tron.log(result.kind)
       }
 
-      // if (result.kind === "ok") {
-      //   // self.saveWeatherLocations(result.weatherLocations)
+      //? with < axios >
+      // if (result.weatherLocations) {
       //   result.weatherLocations.forEach((value, index) => {
       //     self.addWeatherLocation({
+      //       date: value.fcstDate,
       //       time: value.fcstTime,
       //       status: {
       //         category: value.category,
@@ -108,8 +113,6 @@ export const WeatherLocationStoreModel = types
       //       },
       //     })
       //   })
-      // } else {
-      //   __DEV__ && console.tron.log(result.kind)
       // }
     },
   }))
