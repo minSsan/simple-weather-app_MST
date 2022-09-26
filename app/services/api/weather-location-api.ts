@@ -28,6 +28,7 @@ export class WeatherLocationApi {
   }
 
   async getWeatherLocations({ base_date, base_time, nx, ny }: getWeatherLocationsProps) {
+    //? apisauce로 구현
     this.api.setup()
 
     const _response: ApiResponse<any> = await this.api.apisauce.get("/getUltraSrtFcst", {
@@ -54,6 +55,7 @@ export class WeatherLocationApi {
 
     return { kind: "ok", weatherLocations }
 
+    //? axios 로 구현
     // try {
     //   const response = await axios.get(
     //     "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst",

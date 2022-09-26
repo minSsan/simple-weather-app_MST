@@ -3,21 +3,42 @@ import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { color, typography } from "../../theme"
 import { Text } from "../text/text"
+import { palette } from "../../theme/palette"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
+  alignItems: "center",
   // flex: 1,
-  width: "100%",
   height: "100%",
-  backgroundColor: "red",
 }
 
 const TEXT: TextStyle = {
-  fontFamily: typography.primary,
-  fontSize: 14,
-  color: color.primary,
+  color: palette.black,
 }
 
+const DATE: TextStyle = {
+  fontSize: 14,
+}
+
+const LOCATION: TextStyle = {
+  fontSize: 48,
+  fontWeight: "bold",
+
+  marginVertical: 9,
+}
+
+const TIME: TextStyle = {
+  fontSize: 24,
+}
+
+const WEATER_IMG: TextStyle = {
+  width: 165,
+  height: 136,
+
+  marginTop: 24,
+
+  backgroundColor: "#D9D9D9",
+}
 export interface ResultPageProps {
   /**
    * An optional style override useful for padding & margin.
@@ -37,9 +58,10 @@ export const ResultPage = observer(function ResultPage(props: ResultPageProps) {
 
   return (
     <View style={styles}>
-      <Text>{date}</Text>
-      <Text>{location}</Text>
-      <Text>{time}</Text>
+      <Text style={[DATE, TEXT]}>{date}</Text>
+      <Text style={[TEXT, LOCATION]}>{location}</Text>
+      <Text style={[TEXT, TIME]}>{time}</Text>
+      <View style={[WEATER_IMG]} />
     </View>
   )
 })
