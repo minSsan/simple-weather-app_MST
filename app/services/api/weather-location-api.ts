@@ -50,8 +50,19 @@ export class WeatherLocationApi {
     }
 
     // console.log(_response)
-    const weatherLocations: Array<responseProps> = _response.data.response.body.items.item
+    let weatherLocations: Array<responseProps> = _response.data.response.body.items.item
     // console.log("weather locations: ", weatherLocations)
+    weatherLocations = weatherLocations.map((value) => {
+      // ? 불필요한 base date, base time 제외하고 전달
+      return {
+        fcstDate: value.fcstDate,
+        fcstTime: value.fcstTime,
+        category: value.category,
+        fcstValue: value.fcstValue,
+        nx: value.nx,
+        ny: value.ny,
+      }
+    })
 
     return { kind: "ok", weatherLocations }
 

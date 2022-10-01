@@ -47,6 +47,7 @@ export const WeatherLocationStoreModel = types
   //   },
   // }))
   .actions((self) => ({
+    // ? self.weatherLocations에 새로운 weatherLocation을 추가하는 메소드
     addWeatherLocation: ({ date, time, status, location }: WeatherLocationProps) => {
       const id = self.weatherLocations.reduce((max, weather) => Math.max(max, weather.id), 0) + 1
 
@@ -79,10 +80,24 @@ export const WeatherLocationStoreModel = types
       //? with < apisauce >
       if (result.kind === "ok") {
         // self.saveWeatherLocations(result.weatherLocations)
+        // ? 결과로 받은 각각의 weatherLocation를 순서대로 self.weatherLocations에 추가하기
         result.weatherLocations.forEach((value, index) => {
+          // ? YYYY년 MM월 DD일 텍스트
+          let date_text = value.fcstDate
+          date_text = `${date_text.slice(0, 4)}년 ${date_text.slice(4, 6)}월 ${date_text.slice(
+            6,
+          )}일`
+
+          // ? HH:MM 텍스트
+          let time_text = value.fcstTime
+          time_text = `${time_text.slice(0, 2)}:${time_text.slice(2)}`
+
+          // ? 새로운 weatherLocation 생성하여 추가
           self.addWeatherLocation({
-            date: value.fcstDate,
-            time: value.fcstTime,
+            // date: value.fcstDate,
+            date: date_text,
+            // time: value.fcstTime,
+            time: time_text,
             status: {
               category: value.category,
               fcstValue: parseInt(value.fcstValue),
