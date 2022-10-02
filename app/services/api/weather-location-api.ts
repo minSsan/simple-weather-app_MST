@@ -65,29 +65,5 @@ export class WeatherLocationApi {
     })
 
     return { kind: "ok", weatherLocations }
-
-    //? axios 로 구현
-    // try {
-    //   const response = await axios.get(
-    //     "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst",
-    //     {
-    //       params: {
-    //         serviceKey:
-    //           "vCcxPDPprtkDLyR5hdoX4mg6nbpv0KUC/MgO9nEbEZWXyutREW6PXnnaMW6N1yZX/Xv6i1T7lOZYeohhb0/jFQ==",
-    //         numOfRows: 6,
-    //         pageNo: 1,
-    //         dataType: "JSON",
-    //         base_date,
-    //         base_time,
-    //         nx,
-    //         ny,
-    //       },
-    //     },
-    //   )
-    //   //   const weatherLocations: Array<responseProps> = response.data.response.body.items.item
-    //   return { weatherLocations: response.data.response.body.items.item }
-    // } catch (error) {
-    //   console.error(error)
-    // }
   }
 }

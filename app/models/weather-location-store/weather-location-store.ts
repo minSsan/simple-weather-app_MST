@@ -1,7 +1,10 @@
 import { Instance, ISimpleType, SnapshotOut, types } from "mobx-state-tree"
+import { Api } from "../../services/api"
+import { CAREGIVER_API_CONFIG } from "../../services/api/api-config"
 import { WeatherLocationApi } from "../../services/api/weather-location-api"
 import { withEnvironment } from "../extensions/with-environment"
 import { WeatherLocationModel } from "../weather-location/weather-location"
+import { WeatherModel } from "../weather/weather"
 
 /**
  * Model description here for TypeScript hints.
@@ -46,6 +49,8 @@ export const WeatherLocationStoreModel = types
   //     self.weatherLocations.replace(weatherLocationSnapshots)
   //   },
   // }))
+
+  // ! 기상청 api 사용 코드
   .actions((self) => ({
     // ? self.weatherLocations에 새로운 weatherLocation을 추가하는 메소드
     addWeatherLocation: ({ date, time, status, location }: WeatherLocationProps) => {
@@ -111,24 +116,6 @@ export const WeatherLocationStoreModel = types
       } else {
         __DEV__ && console.tron.log(result.kind)
       }
-
-      //? with < axios >
-      // if (result.weatherLocations) {
-      //   result.weatherLocations.forEach((value, index) => {
-      //     self.addWeatherLocation({
-      //       date: value.fcstDate,
-      //       time: value.fcstTime,
-      //       status: {
-      //         category: value.category,
-      //         fcstValue: parseInt(value.fcstValue),
-      //       },
-      //       location: {
-      //         nx: value.nx,
-      //         ny: value.ny,
-      //       },
-      //     })
-      //   })
-      // }
     },
   }))
 

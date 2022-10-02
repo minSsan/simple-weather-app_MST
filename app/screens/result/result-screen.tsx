@@ -8,7 +8,7 @@ import { ResultPage, Screen, Text } from "../../components"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { WeatherLocationApi } from "../../services/api/weather-location-api"
-import { WeatherLocationStoreModel } from "../../models"
+import { WeatherLocationStoreModel, WeatherStoreModel } from "../../models"
 
 const ROOT: ViewStyle = {
   flex: 1,
@@ -46,6 +46,10 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
       weatherLocations: [],
     })
 
+    const weatherStore = WeatherStoreModel.create({
+      weathers: [],
+    })
+
     const windowWidth = useWindowDimensions().width
 
     //* weatherLocation 항목들(array)을 저장하는 state
@@ -71,10 +75,13 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
     useLayoutEffect(() => {
       //? api 이용해서 응답으로 받은 결과 값들 저장하기
       async function fetchData() {
-        await weatherLocationStore.setWeatherLocations({
-          ...route.params,
-        })
-        setStore(weatherLocationStore.weatherLocations)
+        // await weatherLocationStore.setWeatherLocations({
+        //   ...route.params,
+        // })
+        // setStore(weatherLocationStore.weatherLocations)
+        // TODO: rout.params 로 cityId 전달받기
+        await weatherStore.setWeathers(10)
+        setStore(weatherStore.weathers)
       }
       fetchData()
     }, [])
@@ -97,7 +104,7 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
             <ResultPage
               date={item.date}
               time={item.time}
-              location={"서울"}
+              cityName={"서울"}
               style={{ width: windowWidth }}
             />
           )}

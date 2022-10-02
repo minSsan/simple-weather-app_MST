@@ -45,7 +45,8 @@ export interface ResultPageProps {
    */
   style?: StyleProp<ViewStyle>
   date: string
-  location: string
+  // location: string
+  cityName: string
   time: string
 }
 
@@ -53,13 +54,13 @@ export interface ResultPageProps {
  * Describe your component here
  */
 export const ResultPage = observer(function ResultPage(props: ResultPageProps) {
-  const { style, date, location, time } = props
+  const { style, date, cityName, time } = props
   const styles = Object.assign({}, CONTAINER, style)
 
   return (
     <View style={styles}>
       <Text style={[DATE, TEXT]}>{date}</Text>
-      <Text style={[TEXT, LOCATION]}>{location}</Text>
+      <Text style={[TEXT, LOCATION]}>{cityName}</Text>
       <Text style={[TEXT, TIME]}>{time}</Text>
       <View style={[WEATER_IMG]} />
     </View>

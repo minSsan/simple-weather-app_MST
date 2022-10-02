@@ -11,3 +11,17 @@ export type GetUserResult = { kind: "ok"; user: User } | GeneralApiProblem
 
 export type GetCharactersResult = { kind: "ok"; characters: Character[] } | GeneralApiProblem
 export type GetCharacterResult = { kind: "ok"; character: Character } | GeneralApiProblem
+
+export interface WeatherObject {
+  cloudStatus: string
+  createdAt: string
+  expectedDate: string
+  humidity: number
+  id: number
+  isThunder: boolean
+  precipitation: number
+  rainfall: string
+  temperature: number
+  updatedAt: string
+  windSpeed: number
+}

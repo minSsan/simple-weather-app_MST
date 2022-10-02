@@ -99,4 +99,61 @@ export class Api {
       return { kind: "bad-data" }
     }
   }
+
+  async getCityName(cityId: number) {
+    const response: ApiResponse<any> = await this.apisauce.get(`/city/${cityId}`)
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    try {
+      const city = response.data.city
+      return { kind: "ok", cityName: city.cityName }
+    } catch {
+      return { kind: "bad-data" }
+    }
+  }
+
+  private weatherDataFormatter(data: Types.WeatherObject) {
+    const date = new Date(data.expectedDate)
+
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+    const date_text = `${year}년 ${month}월 ${day}일`
+
+    const hours = date.getUTCHours() < 10 ? "0" + date.getUTCHours() : date.getUTCHours()
+    const minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+    const time_text = `${hours}:${minutes}`
+
+    return {
+      date: date_text,
+      time: time_text,
+      isThunder: data.isThunder,
+      rainfall: data.rainfall,
+      temperature: data.temperature,
+      windSpeed: data.windSpeed,
+    }
+  }
+
+  async getWeathers(cityId: number) {
+    const response: ApiResponse<any> = await this.apisauce.get(`/weather/${cityId}`)
+
+    // console.log(response.data.weather)
+    let weathers: Array<any> = response.data.weather
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    try {
+      weathers = weathers.map((value) => this.weatherDataFormatter(value))
+      return { kind: "ok", weathers }
+    } catch {
+      return { kind: "bad-data" }
+    }
+  }
 }
