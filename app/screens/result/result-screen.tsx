@@ -65,13 +65,6 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
       }
     }, [])
 
-    // const fetchData = useCallback(async function () {
-    //   await weatherLocationStore.setWeatherLocations({
-    //     ...route.params,
-    //   })
-    //   setStore(weatherLocationStore.weatherLocations)
-    // }, [])
-
     useLayoutEffect(() => {
       //? api 이용해서 응답으로 받은 결과 값들 저장하기
       async function fetchData() {
@@ -80,7 +73,7 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
         // })
         // setStore(weatherLocationStore.weatherLocations)
         // TODO: rout.params 로 cityId 전달받기
-        await weatherStore.setWeathers(10)
+        await weatherStore.setWeathers(route.params.cityId)
         setStore(weatherStore.weathers)
       }
       fetchData()

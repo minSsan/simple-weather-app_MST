@@ -110,41 +110,44 @@ export const HomeScreen: FC<StackScreenProps<NavigatorParamList, "home">> = obse
 
     //* ------------ 확인하기 버튼
     const handleSubmit = () => {
-      let now = new Date()
-      let hours = now.getHours()
-      let minutes = now.getMinutes()
+      //! 기상청 api 코드
+      // let now = new Date()
+      // let hours = now.getHours()
+      // let minutes = now.getMinutes()
 
-      if (minutes - 30 > 30) {
-        minutes = 30
-      } else if (minutes - 30 > 0) {
-        minutes = 0
-      } else {
-        minutes = 30
-        if (hours - 1 < 0) {
-          hours = 24
-        }
-        hours = hours - 1
-      }
+      // if (minutes - 30 > 30) {
+      //   minutes = 30
+      // } else if (minutes - 30 > 0) {
+      //   minutes = 0
+      // } else {
+      //   minutes = 30
+      //   if (hours - 1 < 0) {
+      //     hours = 24
+      //   }
+      //   hours = hours - 1
+      // }
 
-      const timeData = `${hours < 10 ? "0" + hours : hours}${
-        minutes < 10 ? "0" + minutes : minutes
-      }`
+      // const timeData = `${hours < 10 ? "0" + hours : hours}${
+      //   minutes < 10 ? "0" + minutes : minutes
+      // }`
 
-      const year = now.getFullYear()
-      const month = now.getMonth() + 1 < 10 ? "0" + (now.getMonth() + 1) : now.getMonth() + 1
-      const day = now.getDate() < 10 ? "0" + now.getDate() : now.getDate()
+      // const year = now.getFullYear()
+      // const month = now.getMonth() + 1 < 10 ? "0" + (now.getMonth() + 1) : now.getMonth() + 1
+      // const day = now.getDate() < 10 ? "0" + now.getDate() : now.getDate()
 
-      const dateData = `${year}${month}${day}`
+      // const dateData = `${year}${month}${day}`
 
-      //? result-screen에서 기상청API로 전송할 데이터
-      const request = {
-        base_date: dateData,
-        base_time: timeData,
-        nx: 60,
-        ny: 127,
-      }
+      // //? result-screen에서 기상청API로 전송할 데이터
+      // const request = {
+      //   base_date: dateData,
+      //   base_time: timeData,
+      //   nx: 60,
+      //   ny: 127,
+      // }
+      //! -----------------
+      const cityId = 10
       //? request 데이터를 담아서 result-screen으로 이동
-      navigation.navigate("result", request)
+      navigation.navigate("result", { cityId })
     }
 
     return (

@@ -29,10 +29,7 @@ export type NavigatorParamList = {
   demoList: undefined
   home: undefined
   result: {
-    base_date: string
-    base_time: string
-    nx: number
-    ny: number
+    cityId: number
   }
   // 🔥 Your screens go here
 }
