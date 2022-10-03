@@ -42,9 +42,9 @@ const INDICATOR: ViewStyle = {
 // @ts-ignore
 export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = observer(
   function ResultScreen({ route }) {
-    const weatherLocationStore = WeatherLocationStoreModel.create({
-      weatherLocations: [],
-    })
+    // const weatherLocationStore = WeatherLocationStoreModel.create({
+    //   weatherLocations: [],
+    // })
 
     const weatherStore = WeatherStoreModel.create({
       weathers: [],
@@ -97,7 +97,7 @@ export const ResultScreen: FC<StackScreenProps<NavigatorParamList, "result">> = 
             <ResultPage
               date={item.date}
               time={item.time}
-              cityName={"서울"}
+              cityName={"한양대 ERICA"}
               style={{ width: windowWidth }}
             />
           )}

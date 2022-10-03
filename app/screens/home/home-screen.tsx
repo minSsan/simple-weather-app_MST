@@ -9,6 +9,7 @@ import { Button, LikedLocationButton, LocationDropdown, Screen, Text } from "../
 import { color } from "../../theme"
 import { palette } from "../../theme/palette"
 import Clock from "react-live-clock"
+import { LocationStoreModel } from "../../models"
 
 const ROOT: ViewStyle = {
   // backgroundColor: color.palette.black,
@@ -106,6 +107,7 @@ export const HomeScreen: FC<StackScreenProps<NavigatorParamList, "home">> = obse
     const handlePress = (item: string) => {
       setValue(item)
     }
+
     //* -------------------
 
     //* ------------ 확인하기 버튼

@@ -138,6 +138,13 @@ export class Api {
     }
   }
 
+  private locationDataFormatter(city) {
+    return {
+      id: city.id,
+      cityName: city.cityName,
+    }
+  }
+
   async getWeathers(cityId: number) {
     const response: ApiResponse<any> = await this.apisauce.get(`/weather/${cityId}`)
 
@@ -152,6 +159,24 @@ export class Api {
     try {
       weathers = weathers.map((value) => this.weatherDataFormatter(value))
       return { kind: "ok", weathers }
+    } catch {
+      return { kind: "bad-data" }
+    }
+  }
+
+  async getLocations() {
+    const response: ApiResponse<any> = await this.apisauce.get(`/city/`)
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    let locations: Array<any> = response.data.city
+
+    try {
+      locations = locations.map((value) => this.locationDataFormatter(value))
+      return { kind: "ok", locations }
     } catch {
       return { kind: "bad-data" }
     }

@@ -1,9 +1,10 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useLayoutEffect } from "react"
 import { StyleProp, TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { color, typography } from "../../theme"
 import DropDownPicker from "react-native-dropdown-picker"
+import { LocationStoreModel } from "../../models"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
@@ -34,10 +35,31 @@ export const LocationDropdown = observer(function LocationDropdown(props: Locati
   const { style, isOpen, setIsOpen, value, setValue } = props
   const styles = Object.assign({}, CONTAINER, style)
 
+  const [store, setStore] = useState([])
+  const locationStore = LocationStoreModel.create({
+    locations: [],
+  })
+
   const [items, setItems] = useState([
-    { label: "서울", value: "서울" },
-    { label: "부산", value: "부산" },
+    { label: "서울", value: "1" },
+    { label: "부산", value: "2" },
   ])
+
+  useLayoutEffect(() => {
+    locationStore.setLocation()
+    setStore(locationStore.locations)
+
+    const newItems = store.map((value) => {
+      return {
+        label: value.cityName,
+        value: "" + value.id,
+      }
+    })
+    console.log("-------- newItems")
+    console.log(newItems) // []
+
+    setItems(newItems)
+  }, [])
 
   return (
     <DropDownPicker

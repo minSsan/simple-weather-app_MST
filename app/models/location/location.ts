@@ -7,11 +7,7 @@ export const LocationModel = types
   .model("Location")
   .props({
     id: types.identifierNumber,
-    name: types.string,
-    coordinate: types.frozen({
-      nx: 0,
-      ny: 0,
-    }),
+    cityName: types.string,
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
