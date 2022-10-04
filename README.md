@@ -5,7 +5,9 @@
 
 ## 🖋 피그마(figma)
 > 피그마를 이용하여 UI/UX 디자인도 함께 진행하였습니다.<br>
-> [피그마 링크](https://www.figma.com/file/29nShyhbWz7m2eiMpJLwQ4/%EB%B0%95%EB%AF%BC%EC%84%A0?node-id=15%3A38)
+> [피그마 링크](https://www.figma.com/file/29nShyhbWz7m2eiMpJLwQ4/%EB%B0%95%EB%AF%BC%EC%84%A0?node-id=15%3A38)<br>
+> <img width="536" alt="image" src="https://user-images.githubusercontent.com/63039855/193817490-01df343d-74c5-46b1-a045-8439d5f532f0.png">
+
 <br>
 
 ## ✔️ 기상청 API
