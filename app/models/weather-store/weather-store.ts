@@ -1,6 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { Api } from "../../services/api"
 import { CAREGIVER_API_CONFIG } from "../../services/api/api-config"
+import { WeatherApi } from "../../services/api/weather-api"
 import { WeatherModel } from "../weather/weather"
 
 /**
@@ -36,8 +37,8 @@ export const WeatherStoreModel = types
   }))
   .actions((self) => ({
     setWeathers: async (cityId: number) => {
-      const weatherApi = new Api(CAREGIVER_API_CONFIG)
-      weatherApi.setup()
+      const weatherApi = new WeatherApi()
+
       // TODO: 1. weatherApi.getWeathers 로 날씨 정보가 담긴 배열 받아온다.
       const weatherResponse = await weatherApi.getWeathers(cityId)
       // TODO: 2. 받아온 배열과 self.addWeather 메소드로 self.weatherLocations 정보를 수정한다
