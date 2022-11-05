@@ -21,7 +21,7 @@
 
 #### Request 
 > ```
-> GET http://ec2-3-36-101-9.ap-northeast-2.compute.amazonaws.com:3000/api/v1/city/4
+> GET 케어기버_서버_도메인/api/v1/city/4
 > ```
 #### Response
 > ```JSON
@@ -51,7 +51,7 @@
 
 #### Request
 > ```
-> GET http://ec2-3-36-101-9.ap-northeast-2.compute.amazonaws.com:3000/api/v1/weather/10
+> GET 케어기버_서버_도메인/weather/10
 > ```
 #### Response
 > ```JSON
@@ -147,7 +147,7 @@
 
 #### Request
 > ```
-> GET http://ec2-3-36-101-9.ap-northeast-2.compute.amazonaws.com:3000/api/v1/city/
+> GET 케어기버_서버_도메인/city/
 > ```
 #### Response
 ```JSON
